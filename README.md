@@ -1,4 +1,4 @@
-# ListenClip Desktop
+# ListenClip Desktop-2026-06-28
 
 Material 3 英语精听 Windows 桌面客户端 — MVP v0.1
 

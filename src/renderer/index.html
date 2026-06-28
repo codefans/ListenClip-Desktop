@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      CSP notes:
+      • media-src includes http://127.0.0.1:* so the renderer can load audio
+        from our local media HTTP server (services/mediaServer.ts).  Without
+        an explicit media-src, Chromium falls back to default-src and
+        rejects http://127.0.0.1:NNNNN/... with "Media load rejected by URL
+        safety check" — see https://w3c.github.io/webappsec-csp/#media-src.
+      • The same loopback origin is added to connect-src in case any future
+        code path uses fetch() against the local media server.
+    -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+        default-src 'self' 'unsafe-inline' media: data: blob:;
+        media-src 'self' media: data: blob: http://127.0.0.1:* http://localhost:*;
+        script-src 'self' 'unsafe-inline';
+        connect-src 'self' https://api.openai.com http://127.0.0.1:* http://localhost:*;
+      "
+    />
+    <title>ListenClip Desktop</title>
+    <style>
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./src/main.tsx"></script>
+  </body>
+</html>
